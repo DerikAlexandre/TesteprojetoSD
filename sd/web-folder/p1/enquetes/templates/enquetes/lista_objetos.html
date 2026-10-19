@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Objetos cadastrados | Achados e Perdidos</title>
+    <style>
+        body { font: 16px Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 18px; color: #20252b; }
+        h1 { color: #245b78; }
+        article { border: 1px solid #ccd3d8; border-radius: 6px; padding: 16px; margin: 14px 0; }
+        .muted { color: #59636a; }
+    </style>
+</head>
+<body>
+    <h1>Objetos cadastrados</h1>
+    <p><a href="{% url 'enquetes:cadastro_objeto' %}">Cadastrar outro objeto</a></p>
+    {% for objeto in objetos %}
+        <article>
+            <h2>{{ objeto.nome_objeto }}</h2>
+            <p><strong>Situação:</strong> {{ objeto.get_situacao_display }}</p>
+            <p><strong>Categoria:</strong> {{ objeto.get_categoria_display }}</p>
+            <p><strong>Descrição:</strong> {{ objeto.descricao }}</p>
+            <p><strong>Local:</strong> {{ objeto.local }}</p>
+            <p class="muted">Cadastrado em {{ objeto.criado_em|date:'d/m/Y' }}</p>
+        </article>
+    {% empty %}
+        <p>Ainda não há objetos cadastrados.</p>
+    {% endfor %}
+</body>
+</html>

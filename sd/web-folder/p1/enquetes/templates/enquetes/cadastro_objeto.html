@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastrar objeto | Achados e Perdidos</title>
+    <style>
+        body { font: 16px Arial, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 18px; color: #20252b; }
+        h1 { color: #245b78; }
+        label { display: block; margin: 16px 0 6px; font-weight: 600; }
+        input, select, textarea { box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #89939b; border-radius: 4px; font: inherit; }
+        button { margin-top: 20px; padding: 11px 18px; border: 0; border-radius: 4px; color: white; background: #245b78; font: inherit; cursor: pointer; }
+        .message { padding: 12px; border-radius: 4px; background: #e5f5e9; color: #205b30; }
+        .errors { color: #a32121; }
+        .help { color: #4d5961; }
+    </style>
+</head>
+<body>
+    <h1>Cadastrar objeto perdido ou encontrado</h1>
+    <p>Preencha os dados para registrar um objeto no sistema.</p>
+    <p><a href="{% url 'enquetes:lista_objetos' %}">Ver objetos cadastrados</a></p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.non_field_errors %}<div class="errors">{{ form.non_field_errors }}</div>{% endif %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<small class="help">{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+        {% endfor %}
+        <button type="submit">Cadastrar objeto</button>
+    </form>
+</body>
+</html>

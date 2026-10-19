@@ -1,0 +1,5 @@
+CREDENCIAIS DE ACESSO — DJANGO ADMIN
+
+Endereço: http://localhost:8000/admin/
+Usuário: alinebrito70
+Senha: 19112002
